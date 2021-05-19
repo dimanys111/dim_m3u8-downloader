@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/kuznetsovin/m3u8-downloader/downloader"
-	"github.com/kuznetsovin/m3u8-downloader/gui"
+	"dimanys111/m3u8-downloader/downloader"
+	"dimanys111/m3u8-downloader/gui"
 )
 
 func main() {
