@@ -6,13 +6,13 @@ Downloader m3u8 files from URL.
 
 1. Go get:
 ```bash
-go get -v github.com/kuznetsovin/m3u8-downloader
+go get -v github.com/dimanys111/m3u8-downloader
 ```
 
 2. Install from source:
 
 ```bash
-git clone https://github.com/kuznetsovin/m3u8-downloader.git
+git clone https://github.com/dimanys111/m3u8-downloader.git
 cd m3u8-downloader
 go build -o m3u8-downloader
 ```
