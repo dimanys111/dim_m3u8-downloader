@@ -10,7 +10,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-func New(download func(string, string, chan string, chan string) (string, error)) fyne.App {
+func New(download func(string, string, chan string, chan string)) fyne.App {
 	a := app.New()
 	w := a.NewWindow("m3u8 downloader")
 	w.Resize(fyne.Size{Width: 500, Height: 500})
@@ -46,7 +46,7 @@ func New(download func(string, string, chan string, chan string) (string, error)
 		go func() {
 			for {
 				msg := <-outChan
-				downloaderState <- fmt.Sprintf("Download_" + msg)
+				downloaderState <- fmt.Sprintf("Download " + msg)
 				btn.Enable()
 				btn_st.Disable()
 			}
