@@ -61,6 +61,7 @@ func Download(url, filename string, inCh, outCh chan string) (string, error) {
 	var s1 string
 	var f *os.File
 	for true {
+		var br bool = false
 		resp, err := http.Get(url)
 
 		if err != nil {
@@ -74,8 +75,8 @@ func Download(url, filename string, inCh, outCh chan string) (string, error) {
 			ind1 := strings.LastIndex(s, "/") + 1
 			s1 = s[0:ind1]
 			if filename == "" {
-				ind2 := strings.LastIndex(s, ".")
-				filename = s[ind1:ind2] + ".mp4"
+				var t string = time.Now().Format("20060102150405")
+				filename = t + ".mp4"
 			}
 			f, err = os.Create(filename)
 			if err != nil {
@@ -94,9 +95,13 @@ func Download(url, filename string, inCh, outCh chan string) (string, error) {
 			if strings.HasPrefix(l, "http") {
 				bb = true
 				// download file part
-			} else if strings.HasSuffix(l, ".ts") {
+			} else if strings.Contains(l, ".ts") {
 				bb = true
 				l = resp.Request.URL.Scheme + "://" + resp.Request.URL.Host + s1 + l
+			} else if strings.Contains(l, ".m3u8") {
+				url = resp.Request.URL.Scheme + "://" + resp.Request.URL.Host + s1 + l
+				br = true
+				break
 			}
 
 			if bb {
@@ -126,6 +131,11 @@ func Download(url, filename string, inCh, outCh chan string) (string, error) {
 			default:
 			}
 		}
+
+		if br {
+			continue
+		}
+
 		if !b {
 			return "", errors.New("XXX")
 		}
@@ -142,8 +152,8 @@ func Download(url, filename string, inCh, outCh chan string) (string, error) {
 		default:
 		}
 		fmt.Println("123")
-		time.Sleep(2 * time.Second)
+		break
 	}
-
+	outCh <- "is_stop"
 	return filename, errors.New("YYY")
 }

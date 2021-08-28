@@ -46,7 +46,7 @@ func New(download func(string, string, chan string, chan string) (string, error)
 		go func() {
 			for {
 				msg := <-outChan
-				downloaderState <- fmt.Sprintf(msg)
+				downloaderState <- fmt.Sprintf("Download_" + msg)
 				btn.Enable()
 				btn_st.Disable()
 			}

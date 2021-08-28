@@ -1,4 +1,4 @@
-module dimanys111/m3u8-downloader
+module dimanys111
 
 require fyne.io/fyne/v2 v2.0.2
 
